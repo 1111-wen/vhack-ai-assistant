@@ -1,0 +1,5 @@
+Hello world -> eng_Latn
+Apa khabar? -> eng_Latn
+你好 -> zho_Hans
+எப்படி இருக்கிறீர்கள்? -> tam_Taml
+这是一个测试 -> zho_Hans
