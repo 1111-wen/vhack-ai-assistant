@@ -1,86 +1,134 @@
-import re
-import streamlit as st
-from rag_pipeline import search_docs
-from translator import translate_to_english, translate_from_english
-from language_utils import detect_language
-from intent_utils import detect_intent
+import json
+import os
 
-def format_answer(text):
-    # add line break before numbered steps
-    text = re.sub(r'(\d+\.)', r'\n\1', text)
+from dotenv import load_dotenv
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
+from fastapi.templating import Jinja2Templates
+from pydantic import BaseModel
+from openai import OpenAI
 
-    # remove duplicate line breaks
-    text = re.sub(r'\n+', '\n', text).strip()
+from intent_utils import is_healthcare_related
+from language_utils import get_welcome_message
+from rag_pipeline import get_live_context, build_system_prompt
 
-    return text
+load_dotenv()
 
-st.set_page_config(page_title="Multilingual Government Assistant")
+SEALION_API_KEY = os.getenv("SEALION_API_KEY", "")
 
-st.title("🌏 Multilingual Government Assistant")
-st.write("Ask your question in English, Malay, Chinese, or Tamil.")
+sealion_client = OpenAI(
+    api_key=SEALION_API_KEY,
+    base_url="https://api.sea-lion.ai/v1",
+)
 
-query = st.text_input("Ask your question")
 
-pretty_lang = {
-    "eng_Latn": "English",
-    "zsm_Latn": "Malay",
-    "zho_Hans": "Chinese",
-    "tam_Taml": "Tamil"
-}
+SEALION_MODEL = "aisingapore/Gemma-SEA-LION-v4-27B-IT"
 
-if query:
-    # Detect language
-    detected_lang = detect_language(query)
-    st.write(f"Detected language: {pretty_lang.get(detected_lang, 'English')}")
+app = FastAPI(title="HealthCare Helper MY", version="2.0.0")
+app.mount("/static", StaticFiles(directory="static"), name="static")
+templates = Jinja2Templates(directory="templates")
 
-    # Translate question to English for RAG search
-    english_query = translate_to_english(query, detected_lang)
 
-    # Detect intent from original question
-    intent = detect_intent(query)
+class ChatRequest(BaseModel):
+    message: str
+    lang: str = "en"
 
-    # If unclear, detect intent again from translated English
-    if intent == "general":
-        intent = detect_intent(english_query)
+class WelcomeRequest(BaseModel):
+    lang: str = "en"
 
-    st.write(f"Detected intent: {intent}")
 
-    # Search document
-    answer = search_docs(english_query)
+def call_ai(system_prompt: str, user_message: str) -> tuple[str, str]:
+    if SEALION_API_KEY:
+        try:
+            r = sealion_client.chat.completions.create(
+                model=SEALION_MODEL,
+                max_completion_tokens=1000,
+                timeout=15,
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user",   "content": user_message},
+                ],
+            )
+            return r.choices[0].message.content or "", "SEA-LION v4"
+        except Exception as e:
+            print(f"[SEA-LION] Failed: {e} — ")
 
-    answer_lower = answer.lower()
+    raise RuntimeError("All AI providers failed. Check your API keys in .env")
 
-    # Filter answer based on intent
-    if intent == "steps":
-        if "steps to apply:" in answer_lower:
-            start = answer_lower.find("steps to apply:")
-            answer = answer[start:].strip()
 
-    elif intent == "requirements":
-        if "requirements:" in answer_lower:
-            start = answer_lower.find("requirements:")
-            if "steps to apply:" in answer_lower[start:]:
-                end = answer_lower.find("steps to apply:", start)
-                answer = answer[start:end].strip()
-            else:
-                answer = answer[start:].strip()
+@app.get("/", response_class=HTMLResponse)
+async def index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
-    elif intent == "eligibility":
-        if "eligibility:" in answer_lower:
-            start = answer_lower.find("eligibility:")
-            if "requirements:" in answer_lower[start:]:
-                end = answer_lower.find("requirements:", start)
-                answer = answer[start:end].strip()
-            else:
-                answer = answer[start:].strip()
 
-    else:
-        st.info("Intent unclear. Showing the most relevant information.")
+@app.post("/welcome")
+async def welcome(body: WelcomeRequest):
+    lang = body.lang if body.lang in ("en", "bm", "zh", "ta") else "en"
+    chips = {
+        "en": ["Am I eligible for PEKA B40?", "What is mySALAM?", "Free clinic near me?"],
+        "bm": ["Adakah saya layak PEKA B40?", "Apa itu mySALAM?", "Klinik percuma berhampiran?"],
+        "zh": ["我符合PEKA B40资格吗？", "什么是mySALAM？", "附近有免费诊所吗？"],
+        "ta": ["நான் PEKA B40க்கு தகுதியானவரா?", "mySALAM என்றால் என்ன?", "இலவச கிளினிக் எங்கே?"],
+    }
+    return JSONResponse({
+        "reply": get_welcome_message(lang),
+        "source_name": None,
+        "source_url": None,
+        "follow_up_chips": chips.get(lang, chips["en"]),
+        "out_of_scope": False,
+    })
 
-    # Translate answer back to user language
-    final_answer = translate_from_english(answer, detected_lang)
 
-    formatted_answer = format_answer(final_answer)
+@app.post("/chat")
+async def chat(body: ChatRequest):
+    user_message = body.message.strip()
+    lang = body.lang if body.lang in ("en", "bm", "zh", "ta") else "en"
 
-    st.subheader("Answer")
-    st.markdown(f"```\n{formatted_answer}\n```")
+    if not user_message:
+        return JSONResponse({"error": "Empty message"}, status_code=400)
+
+    # ── Step 1: Quick intent check ─────────────────────────────────────────────
+    in_scope = is_healthcare_related(user_message)
+    msg_for_ai = f"[LIKELY OUT OF SCOPE] {user_message}" if not in_scope else user_message
+
+    # ── Step 2: TRUE RAG — fetch live content from official website ────────────
+    print(f"[Chat] User: {user_message[:60]}...")
+    live_context, source_name, source_url = get_live_context(user_message)
+
+    # ── Step 3: Build prompt with live context injected ────────────────────────
+    system_prompt = build_system_prompt(lang, live_context, source_name, source_url)
+
+    # ── Step 4: Call AI ────────────────────────────────────────────────────────
+    try:
+        raw_text, model_used = call_ai(system_prompt, msg_for_ai)
+        print(f"[{model_used}] responded OK")
+
+        try:
+            clean  = raw_text.replace("```json", "").replace("```", "").strip()
+            parsed = json.loads(clean)
+        except json.JSONDecodeError:
+            parsed = {
+                "reply": raw_text or "Sorry, I had trouble with that. Please try again.",
+                "source_name": source_name,
+                "source_url": source_url,
+                "follow_up_chips": [],
+                "out_of_scope": False,
+            }
+
+        parsed["model_used"] = model_used
+        return JSONResponse(parsed)
+
+    except RuntimeError as e:
+        return JSONResponse({"error": str(e)}, status_code=503)
+    except Exception as e:
+        return JSONResponse({"error": f"Something went wrong: {str(e)}"}, status_code=500)
+
+
+@app.get("/health")
+async def health():
+    return {
+        "status": "ok",
+        "version": "2.0.0 — Live RAG",
+        "sealion_key_set": bool(SEALION_API_KEY),
+    }

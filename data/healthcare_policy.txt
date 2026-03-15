@@ -1,14 +1,200 @@
-Healthcare Assistance Program
+---
+SCHEME: PEKA B40 (Skim Peduli Kesihatan untuk Kumpulan B40)
+SOURCE: https://protecthealth.com.my/peka-b40-eng/ | www.pekab40.com.my
+---
+ELIGIBILITY:
+- Malaysian citizen aged 40 years and above
+- Must be a Sumbangan Tunai Rahmah (STR) recipient OR the spouse of a STR recipient
+- No pre-registration required — just bring MyKad to any PeKa B40-registered clinic
 
-Eligibility:
-Citizens earning below RM3000 per month can apply for healthcare assistance.
+BENEFIT 1 — FREE HEALTH SCREENING:
+- Blood glucose, blood pressure, cholesterol, BMI check
+- Urine dipstick test
+- Mental health screening
+- Breast examination (women) and prostate screening (men)
+- Completely free, no fasting needed
 
-Requirements:
-1. Identification card
-2. Proof of income
+BENEFIT 2 — MEDICAL EQUIPMENT ASSISTANCE (up to RM20,000):
+- Hearing aids, wheelchairs, artificial limbs (prostheses)
+- Pacemakers, heart stents, cochlear implants
+- Must complete Benefit 1 (health screening) first
 
-Steps to apply:
-1. Visit the government health portal
-2. Complete the application form
-3. Upload identification card
-4. Approval takes 3 working days
+BENEFIT 3 — CANCER TREATMENT INCENTIVE (RM1,000 total):
+- RM300 paid when cancer treatment begins
+- RM700 paid after treatment is completed
+- Applies to confirmed cancer diagnosis at government hospital
+
+BENEFIT 4 — TRANSPORT INCENTIVE:
+- Peninsular Malaysia: up to RM500
+- Sabah, Sarawak, Labuan: up to RM1,000
+- For recipients of Benefit 2 or Benefit 3 only
+
+HOW TO ACCESS:
+- Walk in to any PeKa B40 panel clinic with your MyKad
+- No appointment needed for Benefit 1
+- List of panel clinics: www.pekab40.com.my
+
+---
+SCHEME: mySALAM (National Health Protection Scheme)
+SOURCE: https://www.mysalam.com.my
+CARELINE: 1-300-888-938
+---
+WHAT IT IS:
+- FREE national health takaful scheme — no premiums, no deductions
+- Government-funded protection for B40 and lower M40 Malaysians
+
+ELIGIBILITY (AUTOMATIC — B40):
+- Malaysian citizen aged 18 to 65
+- Registered recipient of: STR, BSH, BPR, or BKM
+- Auto-enrolled — no action needed
+
+ELIGIBILITY (VOLUNTARY — M40):
+- Annual taxable income RM100,000 and below
+- Must register voluntarily at mysalam.com.my
+
+BENEFIT 1 — CRITICAL ILLNESS PAYOUT (RM8,000):
+- One-time cash payment upon diagnosis of any of 50 critical illnesses
+- Covered illnesses include: Cancer, Stroke, Heart Attack, Kidney Failure, Alzheimer's Disease, Parkinson's Disease, Blindness, Deafness, Major Burns, Coma, and 40 more
+- Paid directly into recipient's bank account
+
+BENEFIT 2 — HOSPITALISATION ALLOWANCE (RM50/day):
+- Maximum 14 days per year
+- Must be admitted as inpatient (overnight in ward)
+- At government hospitals, military hospitals, or university hospitals only
+- Private hospital admissions are NOT covered
+
+HOW TO CLAIM — CRITICAL ILLNESS:
+1. Get diagnosis confirmed by a doctor at a government hospital
+2. Doctor fills in mySALAM Critical Illness Form
+3. Submit form + documents online at mysalam.com.my OR at mySALAM kiosks in public hospitals
+
+HOW TO CLAIM — HOSPITALISATION:
+1. Get hospital discharge summary (Ringkasan Discaj)
+2. Submit at mysalam.com.my or mySALAM kiosk within 60 days of discharge
+
+DOCUMENTS NEEDED:
+- MyKad (front and back)
+- Hospital discharge note or specialist letter
+- Bank account details (must match MyKad name)
+
+---
+SCHEME: TABUNG BANTUAN PERUBATAN (TBP) — Medical Assistance Fund
+SOURCE: Ministry of Health Malaysia — www.moh.gov.my
+---
+WHAT IT IS:
+- Government fund managed by MOH to help patients who CANNOT afford treatment at government hospitals
+- Means-tested — based on financial hardship
+
+ELIGIBILITY:
+- Malaysian citizen
+- Currently a patient at a government/public hospital
+- Unable to pay outstanding medical bills (financially qualified)
+- Assessed by Medical Social Work Unit at the hospital
+
+WHAT IT COVERS:
+- Outstanding hospital bills at government hospitals
+- Dialysis treatment costs
+- Cancer treatment (chemotherapy, radiotherapy)
+- Specialist equipment and implants
+- Referral and transport assistance in some cases
+
+HOW TO APPLY:
+1. Go to the Medical Social Work Unit (Unit Kerja Sosial Perubatan) at the government hospital where you are being treated
+2. Speak to the Medical Social Officer (Pegawai Kerja Sosial Perubatan)
+3. Bring: MyKad, proof of income (payslip, EPF statement, or statutory declaration), outstanding hospital bills, and referral letter from doctor if available
+4. The officer will assess your case and submit on your behalf
+
+IMPORTANT NOTES:
+- You do NOT apply online — must go in person to the hospital
+- Decision is made by a hospital committee
+- Amount and type of assistance varies per case
+
+---
+SCHEME: SKIM PERUBATAN MADANI (Free Clinic Treatment)
+SOURCE: https://protecthealth.com.my/skimperubatanmadani-ms/ | www.moh.gov.my
+---
+WHAT IT IS:
+- Free treatment for MINOR illnesses at registered government panel clinics
+- For STR recipients — auto-eligible, no registration needed
+
+ELIGIBILITY:
+- Must be a registered STR recipient (Sumbangan Tunai Rahmah)
+- Three categories:
+  a) Household recipients: RM250 credit per year
+  b) Senior citizens without partner: RM125 credit per year
+  c) Singles: RM75 credit per year
+
+WHAT IS COVERED (minor illnesses only):
+- Fever, flu, cough, sore throat
+- Diarrhoea, vomiting, stomach ache
+- Headache, dizziness
+- Minor sprains and wounds
+- Skin rashes (minor)
+
+WHAT IS NOT COVERED:
+- Major surgeries, hospitalisation, specialist treatment
+- Chronic disease management (hypertension, diabetes follow-up)
+- Dental and optical treatment
+
+CURRENTLY AVAILABLE IN 10 DISTRICTS:
+Kuala Lumpur, Gombak, Hulu Langat, Petaling, Klang (Selangor), Johor Bahru, Kinta (Perak), Timur Laut (Penang), Kota Kinabalu (Sabah), Kuching (Sarawak)
+
+HOW TO ACCESS:
+- Walk in to any Skim Perubatan Madani panel clinic in the listed districts
+- Bring MyKad — receptionist will verify STR status
+- Treatment deducted from your annual credit
+
+---
+SCHEME: SOCSO / PERKESO (Social Security Organisation)
+SOURCE: www.perkeso.gov.my
+CARELINE: 1-300-22-8000
+---
+WHAT IT IS:
+- Statutory body protecting EMPLOYEES against work-related accidents and occupational diseases
+- Managed by PERKESO (Pertubuhan Keselamatan Sosial)
+
+WHO IS COVERED:
+- All employees earning RM5,000/month or less — MANDATORY coverage
+- Employees earning above RM5,000 can opt in voluntarily
+- Both employer AND employee contribute monthly
+
+WHO IS NOT COVERED:
+- Self-employed individuals (unless voluntarily registered under SKSPS scheme)
+- Domestic helpers
+- Civil servants (covered under PERKESO since 2019 — check with employer)
+
+EMPLOYMENT INJURY SCHEME (EIS) BENEFITS:
+
+1. MEDICAL BENEFIT — UNLIMITED
+   - Free treatment at SOCSO panel clinics and hospitals
+   - Covers all costs for work-related injuries: consultations, surgery, medication, physiotherapy
+
+2. TEMPORARY DISABILITY BENEFIT (TDB):
+   - 80% of daily wage for each day unable to work
+   - Paid from Day 1 of medical leave
+   - Continues until worker recovers or is assessed for permanent disability
+
+3. PERMANENT DISABILITY BENEFIT (PDB):
+   - Monthly pension if injury results in permanent disability
+   - Amount based on % of disability assessed by SOCSO medical board
+
+4. DEATH/SURVIVORS' PENSION:
+   - Monthly pension to dependants (spouse, children) if worker dies from work accident
+   - Dependent child benefit until age 21
+
+5. RETURN TO WORK (RTW) PROGRAMME:
+   - Rehabilitation, retraining, and job placement support
+   - For workers who cannot return to their original job
+
+HOW TO CLAIM AFTER A WORK ACCIDENT:
+1. Inform your EMPLOYER immediately (within 48 hours)
+2. Employer submits Accident Report (Borang 34) to SOCSO within 48 hours
+3. You seek treatment at a SOCSO panel clinic or hospital
+4. Bring your MyKad and SOCSO card (or show employer contribution record)
+5. All treatment costs billed directly to SOCSO — you pay nothing
+
+FOR OCCUPATIONAL DISEASE:
+- Doctor must certify the disease is work-related
+- Submit Form 34A through employer
+
+ONLINE PORTAL: https://www.perkeso.gov.my/en/our-services/protection/employment-injury-scheme

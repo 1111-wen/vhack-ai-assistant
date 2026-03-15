@@ -1,28 +1,162 @@
-from langchain_community.document_loaders import TextLoader
-from langchain_text_splitters import CharacterTextSplitter
-from langchain_community.vectorstores import FAISS
-from langchain_community.embeddings import HuggingFaceEmbeddings
+import httpx
+import re
+from language_utils import get_language_instruction
 
-# Load document
-loader = TextLoader("data/healthcare_policy.txt")
-documents = loader.load()
-print("Loaded documents:", documents)
+# ── Official source URLs per scheme ───────────────────────────────────────────
+SCHEME_SOURCES = {
+    "peka_b40": {
+        "name": "PEKA B40 Official",
+        "url": "https://protecthealth.com.my/peka-b40-eng/",
+        "keywords": ["peka", "peka b40", "peduli kesihatan", "health screening",
+                     "saringan kesihatan", "b40 screening"],
+    },
+    "mysalam": {
+        "name": "mySALAM Official",
+        "url": "https://www.mysalam.com.my",
+        "keywords": ["mysalam", "my salam", "salam", "critical illness", "penyakit kritikal",
+                     "hospitalisation allowance", "cash payout", "takaful"],
+    },
+    "tbp": {
+        "name": "MOH Malaysia — Tabung Bantuan Perubatan",
+        "url": "https://www.moh.gov.my",
+        "keywords": ["tbp", "tabung bantuan", "tabung bantuan perubatan",
+                     "medical assistance fund", "medical social", "kerja sosial perubatan"],
+    },
+    "madani": {
+        "name": "Skim Perubatan Madani Official",
+        "url": "https://protecthealth.com.my/skimperubatanmadani-ms/",
+        "keywords": ["madani", "skim perubatan madani", "skim perubatan",
+                     "free clinic", "klinik percuma", "klinik panel"],
+    },
+    "socso": {
+        "name": "SOCSO / PERKESO Official",
+        "url": "https://www.perkeso.gov.my/en/our-services/protection/employment-injury-scheme",
+        "keywords": ["socso", "perkeso", "work accident", "kemalangan kerja",
+                     "employment injury", "occupational disease", "penyakit pekerjaan"],
+    },
+}
 
-# Split document into smaller chunks
-text_splitter = CharacterTextSplitter(
-    chunk_size=500,
-    chunk_overlap=50
-)
+# ── Fallback knowledge base (used if live fetch fails) ────────────────────────
+FALLBACK_KNOWLEDGE = """
+PEKA B40: Free health screening for STR recipients aged 40+. Up to RM20,000 medical equipment aid, RM1,000 cancer treatment incentive. No registration needed. Visit www.pekab40.com.my
 
-docs = text_splitter.split_documents(documents)
+mySALAM: Free national takaful for B40. RM8,000 payout for 50 critical illnesses. RM50/day hospitalisation allowance (max 14 days). Auto-enrolled for STR recipients. www.mysalam.com.my
 
-# Create embeddings model
-embeddings = HuggingFaceEmbeddings()
+Tabung Bantuan Perubatan (TBP): MOH fund for patients who cannot afford government hospital bills. Apply through Medical Social Officer at the hospital. www.moh.gov.my
 
-# Create vector database
-db = FAISS.from_documents(docs, embeddings)
+Skim Perubatan Madani: Free minor illness treatment at panel clinics for STR recipients. RM250/year (household), RM125 (senior), RM75 (single). 10 districts only. www.moh.gov.my
 
-# Search function
-def search_docs(query):
-    results = db.similarity_search(query)
-    return results[0].page_content
+SOCSO/PERKESO: Work accident protection for employees. Unlimited medical coverage, 80% daily wage during recovery, permanent disability pension. Careline: 1-300-22-8000. www.perkeso.gov.my
+"""
+
+
+def detect_scheme(user_text: str) -> str | None:
+
+    text_lower = user_text.lower()
+    for scheme_key, info in SCHEME_SOURCES.items():
+        if any(kw in text_lower for kw in info["keywords"]):
+            return scheme_key
+    return None
+
+
+def fetch_page_content(url: str, timeout: int = 8) -> str:
+    try:
+        headers = {
+            "User-Agent": "Mozilla/5.0 (compatible; HealthcareHelperMY/1.0)",
+            "Accept": "text/html,application/xhtml+xml",
+        }
+        response = httpx.get(url, headers=headers, timeout=timeout, follow_redirects=True)
+        if response.status_code != 200:
+            return ""
+
+        # Strip HTML tags
+        text = re.sub(r"<[^>]+>", " ", response.text)
+        # Collapse whitespace
+        text = re.sub(r"\s+", " ", text).strip()
+        # Return first 3000 chars — enough for key info, not too long
+        return text[:3000]
+    except Exception as e:
+        print(f"[RAG] Fetch failed for {url}: {e}")
+        return ""
+
+
+def get_live_context(user_text: str) -> tuple[str, str, str]:
+
+    scheme_key = detect_scheme(user_text)
+
+    if scheme_key:
+        source = SCHEME_SOURCES[scheme_key]
+        print(f"[RAG] Detected scheme: {scheme_key} → fetching {source['url']}")
+        live_content = fetch_page_content(source["url"])
+
+        if live_content:
+            print(f"[RAG] Live fetch successful — {len(live_content)} chars")
+            return live_content, source["name"], source["url"]
+        else:
+            print(f"[RAG] Live fetch failed — using fallback knowledge base")
+            return FALLBACK_KNOWLEDGE, source["name"], source["url"]
+    else:
+        # General question — use full fallback knowledge
+        print(f"[RAG] No specific scheme detected — using fallback knowledge base")
+        return FALLBACK_KNOWLEDGE, None, None
+
+
+def build_system_prompt(lang_code: str, live_context: str, source_name: str = None, source_url: str = None) -> str:
+
+    lang_instruction = get_language_instruction(lang_code)
+
+    source_note = ""
+    if source_name and source_url:
+        source_note = f"\nThis context was retrieved LIVE from: {source_name} ({source_url})\n"
+
+    return f"""You are HealthCare Helper MY — a warm, friendly AI assistant built for V Hack 2026 (Case Study 4: The Inclusive Citizen).
+
+Your mission: Help Malaysian citizens — especially B40, elderly, migrant workers, and rural communities — understand government healthcare schemes in simple everyday language.
+
+LANGUAGE RULE:
+{lang_instruction}
+
+LIVE RETRIEVED CONTEXT (use this as your primary source of truth):
+=================================================================
+{source_note}
+{live_context}
+=================================================================
+
+STRICT RULES:
+1. Only answer questions about these 5 Malaysian healthcare schemes:
+   PEKA B40, mySALAM, Tabung Bantuan Perubatan (TBP), Skim Perubatan Madani, SOCSO/PERKESO.
+
+2. If the user asks something OUTSIDE these 5 schemes, set "out_of_scope": true.
+   Politely redirect and suggest one relevant scheme. Do NOT answer off-topic questions.
+
+3. Use SIMPLE language — explain like you're talking to someone's grandmother.
+   Short sentences. No jargon. Bullet points only for 3+ items.
+
+4. Keep answers SHORT and practical (3-5 sentences or up to 8 bullet points max).
+
+5. Always cite the official source URL.
+
+6. If eligibility is unclear, ask ONE short clarifying question
+   (e.g. "Are you a STR recipient?" or "Is this a work-related injury?").
+
+7. Be warm, empathetic, and encouraging.
+   People asking may be in financial hardship or dealing with illness.
+
+8. If the live context does not contain the answer, say:
+   "I'm not sure about that detail — please check [official website] directly."
+   NEVER make up numbers, amounts, or eligibility rules.
+
+RESPOND WITH ONLY VALID JSON (no markdown, no code fences):
+{{
+  "reply": "your answer in the selected language",
+  "source_name": "{source_name or 'Official Malaysian Government Source'}",
+  "source_url": "{source_url or 'https://www.moh.gov.my'}",
+  "follow_up_chips": ["short question 1", "short question 2", "short question 3"],
+  "out_of_scope": false
+}}
+
+Rules for follow_up_chips:
+- Max 3 chips, each 5 words or less
+- Write in the SAME language as the reply
+- Should be natural follow-up questions the user might ask
+"""

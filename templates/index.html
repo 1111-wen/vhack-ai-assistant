@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>HealthCare Helper MY</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css"/>
+</head>
+<body>
+
+<div id="page-wrapper">
+
+  <!-- LEFT PANEL — info sidebar -->
+  <div id="sidebar">
+    <div id="sidebar-logo"></div>
+    <h1 id="sidebar-title">HealthCare<br>Helper MY</h1>
+    <p id="sidebar-sub">AI-powered guide to Malaysian government healthcare schemes</p>
+
+    <div id="scheme-list">
+      <div class="scheme-card" onclick="sendQuick('What is PEKA B40 and am I eligible?')">
+        <span class="scheme-icon"></span>
+        <div>
+          <div class="scheme-name">PEKA B40</div>
+          <div class="scheme-desc">Free health screening</div>
+        </div>
+      </div>
+      <div class="scheme-card" onclick="sendQuick('How does mySALAM work and how do I claim?')">
+        <span class="scheme-icon"></span>
+        <div>
+          <div class="scheme-name">mySALAM</div>
+          <div class="scheme-desc">Critical illness cash aid</div>
+        </div>
+      </div>
+      <div class="scheme-card" onclick="sendQuick('How to apply for Tabung Bantuan Perubatan?')">
+        <span class="scheme-icon"></span>
+        <div>
+          <div class="scheme-name">Tabung Bantuan</div>
+          <div class="scheme-desc">Medical assistance fund</div>
+        </div>
+      </div>
+      <div class="scheme-card" onclick="sendQuick('Tell me about Skim Perubatan Madani free clinic')">
+        <span class="scheme-icon"></span>
+        <div>
+          <div class="scheme-name">Skim Madani</div>
+          <div class="scheme-desc">Free clinic treatment</div>
+        </div>
+      </div>
+      <div class="scheme-card" onclick="sendQuick('What does SOCSO cover for work accidents?')">
+        <span class="scheme-icon"></span>
+        <div>
+          <div class="scheme-name">SOCSO</div>
+          <div class="scheme-desc">Work accident protection</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="sidebar-footer">
+    </div>
+  </div>
+
+  <!-- RIGHT PANEL — chat -->
+  <div id="chat-panel">
+
+    <!-- HEADER -->
+    <div id="header">
+      <button id="menu-btn" onclick="toggleSidebar()">☰</button>
+      <div id="header-avatar"></div>
+      <div id="header-info">
+        <div id="header-name">HealthCare Helper MY</div>
+        <div id="status-text">Online · AI-Powered</div>
+      </div>
+      <div id="lang-bar">
+        <button class="lang-btn active" onclick="setLang('en', this)">EN</button>
+        <button class="lang-btn" onclick="setLang('bm', this)">BM</button>
+        <button class="lang-btn" onclick="setLang('zh', this)">中文</button>
+        <button class="lang-btn" onclick="setLang('ta', this)">தமிழ்</button>
+      </div>
+    </div>
+
+    <!-- MESSAGES -->
+    <div id="messages">
+      <div class="date-divider"><span>Today</span></div>
+    </div>
+
+    <!-- INPUT -->
+    <div id="input-area">
+      <textarea
+        id="msg-input"
+        placeholder="Ask about any Malaysian healthcare scheme..."
+        rows="1"
+        onkeydown="handleKey(event)"
+        oninput="autoResize(this)"
+      ></textarea>
+      <button id="send-btn" onclick="sendMessage()" title="Send">
+        <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script src="/static/js/chat.js"></script>
+<script>
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('open');
+  }
+</script>
+</body>
+</html>
