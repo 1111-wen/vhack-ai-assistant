@@ -1,8 +1,21 @@
+"""
+language_utils.py
+-----------------
+Maps language codes to:
+  - System prompt language instructions
+  - Welcome messages shown at chatbot load
+
+Supported: en, bm, zh, ta, id, tl, vi
+"""
+
 LANGUAGE_INSTRUCTIONS = {
     "en": "Always respond in clear, simple ENGLISH.",
     "bm": "Sila jawab dalam BAHASA MALAYSIA yang mudah dan jelas sepenuhnya.",
     "zh": "请始终用简体中文回答，语言要简单清晰。",
     "ta": "எப்போதும் எளிய, தெளிவான தமிழில் பதிலளிக்கவும்.",
+    "id": "Selalu jawab dalam BAHASA INDONESIA yang mudah dan jelas.",
+    "tl": "Palaging sumagot sa simpleng FILIPINO (Tagalog).",
+    "vi": "Luôn trả lời bằng TIẾNG VIỆT đơn giản và rõ ràng.",
 }
 
 WELCOME_MESSAGES = {
@@ -45,6 +58,36 @@ WELCOME_MESSAGES = {
         "• 🩺 Skim Perubatan Madani — இலவச கிளினிக்\n"
         "• 🦺 SOCSO — தொழில் விபத்து பாதுகாப்பு\n\n"
         "கீழே உள்ள பொத்தானை அழுத்தவும் அல்லது கேள்வி தட்டச்சு செய்யவும்!"
+    ),
+    "id": (
+        "👋 *Selamat Datang!* Saya Panduan Kesehatan Malaysia Anda.\n\n"
+        "Saya dapat membantu Anda memahami:\n"
+        "• 🔍 PEKA B40 — pemeriksaan kesehatan gratis\n"
+        "• 💊 mySALAM — bantuan tunai penyakit kritis\n"
+        "• 🏥 Tabung Bantuan Perubatan (TBP)\n"
+        "• 🩺 Skim Perubatan Madani — klinik gratis\n"
+        "• 🦺 SOCSO — perlindungan kecelakaan kerja\n\n"
+        "Ketuk tombol di bawah atau ketik pertanyaan Anda!"
+    ),
+    "tl": (
+        "👋 *Maligayang pagdating!* Ako ang iyong Gabay sa Pangangalagang Pangkalusugan ng Malaysia.\n\n"
+        "Matutulungan kita na maunawaan ang:\n"
+        "• 🔍 PEKA B40 — libreng pagsusuri sa kalusugan\n"
+        "• 💊 mySALAM — tulong sa kritikal na sakit\n"
+        "• 🏥 Tabung Bantuan Perubatan (TBP)\n"
+        "• 🩺 Skim Perubatan Madani — libreng klinika\n"
+        "• 🦺 SOCSO — proteksyon sa aksidente sa trabaho\n\n"
+        "Pindutin ang button sa ibaba o i-type ang iyong tanong!"
+    ),
+    "vi": (
+        "👋 *Xin chào!* Tôi là Hướng dẫn Chăm sóc Sức khỏe Malaysia của bạn.\n\n"
+        "Tôi có thể giúp bạn hiểu về:\n"
+        "• 🔍 PEKA B40 — khám sức khỏe miễn phí\n"
+        "• 💊 mySALAM — hỗ trợ tiền mặt bệnh hiểm nghèo\n"
+        "• 🏥 Tabung Bantuan Perubatan (TBP)\n"
+        "• 🩺 Skim Perubatan Madani — phòng khám miễn phí\n"
+        "• 🦺 SOCSO — bảo vệ tai nạn lao động\n\n"
+        "Nhấn nút bên dưới hoặc gõ câu hỏi của bạn!"
     ),
 }
 

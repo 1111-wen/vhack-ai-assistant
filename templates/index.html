@@ -14,41 +14,41 @@
 
   <!-- LEFT PANEL — info sidebar -->
   <div id="sidebar">
-    <div id="sidebar-logo"></div>
+    <div id="sidebar-logo">🏥</div>
     <h1 id="sidebar-title">HealthCare<br>Helper MY</h1>
     <p id="sidebar-sub">AI-powered guide to Malaysian government healthcare schemes</p>
 
     <div id="scheme-list">
       <div class="scheme-card" onclick="sendQuick('What is PEKA B40 and am I eligible?')">
-        <span class="scheme-icon"></span>
+        <span class="scheme-icon">🔍</span>
         <div>
           <div class="scheme-name">PEKA B40</div>
           <div class="scheme-desc">Free health screening</div>
         </div>
       </div>
       <div class="scheme-card" onclick="sendQuick('How does mySALAM work and how do I claim?')">
-        <span class="scheme-icon"></span>
+        <span class="scheme-icon">💊</span>
         <div>
           <div class="scheme-name">mySALAM</div>
           <div class="scheme-desc">Critical illness cash aid</div>
         </div>
       </div>
       <div class="scheme-card" onclick="sendQuick('How to apply for Tabung Bantuan Perubatan?')">
-        <span class="scheme-icon"></span>
+        <span class="scheme-icon">🏥</span>
         <div>
           <div class="scheme-name">Tabung Bantuan</div>
           <div class="scheme-desc">Medical assistance fund</div>
         </div>
       </div>
       <div class="scheme-card" onclick="sendQuick('Tell me about Skim Perubatan Madani free clinic')">
-        <span class="scheme-icon"></span>
+        <span class="scheme-icon">🩺</span>
         <div>
           <div class="scheme-name">Skim Madani</div>
           <div class="scheme-desc">Free clinic treatment</div>
         </div>
       </div>
       <div class="scheme-card" onclick="sendQuick('What does SOCSO cover for work accidents?')">
-        <span class="scheme-icon"></span>
+        <span class="scheme-icon">🦺</span>
         <div>
           <div class="scheme-name">SOCSO</div>
           <div class="scheme-desc">Work accident protection</div>
@@ -56,7 +56,18 @@
       </div>
     </div>
 
+    <button id="map-btn" onclick="sendQuick('Find clinic near me')">🗺️ Find Nearby Clinic</button>
+
+    <button id="quiz-btn" onclick="startQuiz()">
+      🎯 Check My Eligibility
+    </button>
+
     <div id="sidebar-footer">
+      <div id="powered-by">
+        <span>Powered by</span>
+        <strong>SEA-LION v4</strong>
+      </div>
+      <div id="vhack-badge">V HACK 2026</div>
     </div>
   </div>
 
@@ -66,7 +77,7 @@
     <!-- HEADER -->
     <div id="header">
       <button id="menu-btn" onclick="toggleSidebar()">☰</button>
-      <div id="header-avatar"></div>
+      <div id="header-avatar">🏥</div>
       <div id="header-info">
         <div id="header-name">HealthCare Helper MY</div>
         <div id="status-text">Online · AI-Powered</div>
@@ -76,7 +87,15 @@
         <button class="lang-btn" onclick="setLang('bm', this)">BM</button>
         <button class="lang-btn" onclick="setLang('zh', this)">中文</button>
         <button class="lang-btn" onclick="setLang('ta', this)">தமிழ்</button>
+        <button class="lang-btn" onclick="setLang('id', this)">ID</button>
+        <button class="lang-btn" onclick="setLang('tl', this)">FIL</button>
+        <button class="lang-btn" onclick="setLang('vi', this)">VI</button>
       </div>
+    </div>
+
+    <!-- DISCLAIMER -->
+    <div id="disclaimer">
+      ⚠️ For reference only — always verify with official government sources.
     </div>
 
     <!-- MESSAGES -->
@@ -86,7 +105,8 @@
 
     <!-- INPUT -->
     <div id="input-area">
-      <textarea
+      <button id="voice-btn" onclick="toggleVoice()" title="Voice input">🎤</button>
+    <textarea
         id="msg-input"
         placeholder="Ask about any Malaysian healthcare scheme..."
         rows="1"
