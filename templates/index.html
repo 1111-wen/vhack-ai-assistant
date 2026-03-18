@@ -22,58 +22,62 @@
       <div class="scheme-card" onclick="askScheme('peka_b40')">
         <div class="scheme-icon">🔍</div>
         <div>
-          <div class="scheme-name">PEKA B40</div>
-          <div class="scheme-desc">Free health screening</div>
+          <div class="scheme-name" id="peka-name">PEKA B40</div>
+          <div class="scheme-desc" id="peka-desc">Free health screening</div>
         </div>
       </div>
+
       <div class="scheme-card" onclick="askScheme('mysalam')">
         <div class="scheme-icon">💊</div>
         <div>
-          <div class="scheme-name">mySALAM</div>
-          <div class="scheme-desc">Critical illness cash aid</div>
+          <div class="scheme-name" id="mysalam-name">mySALAM</div>
+          <div class="scheme-desc" id="mysalam-desc">Critical illness cash aid</div>
         </div>
       </div>
+
       <div class="scheme-card" onclick="askScheme('tbp')">
         <div class="scheme-icon">🏥</div>
         <div>
-          <div class="scheme-name">Tabung Bantuan</div>
-          <div class="scheme-desc">Medical assistance fund</div>
+          <div class="scheme-name" id="tbp-name">Tabung Bantuan</div>
+          <div class="scheme-desc" id="tbp-desc">Medical assistance fund</div>
         </div>
       </div>
+
       <div class="scheme-card" onclick="askScheme('madani')">
         <div class="scheme-icon">🩺</div>
         <div>
-          <div class="scheme-name">Skim Madani</div>
-          <div class="scheme-desc">Free clinic treatment</div>
+          <div class="scheme-name" id="madani-name">Skim Madani</div>
+          <div class="scheme-desc" id="madani-desc">Free clinic treatment</div>
         </div>
       </div>
+
       <div class="scheme-card" onclick="askScheme('socso')">
         <div class="scheme-icon">🦺</div>
         <div>
-          <div class="scheme-name">SOCSO</div>
-          <div class="scheme-desc">Work accident protection</div>
+          <div class="scheme-name" id="socso-name">SOCSO</div>
+          <div class="scheme-desc" id="socso-desc">Work accident protection</div>
         </div>
       </div>
     </div>
 
-    <button id="summarize-btn" onclick="showSummarizeMenu()"> Summarize a Policy</button>
+    <button id="summarize-btn" onclick="showSummarizeMenu()">Summarize a Policy</button>
     <button id="map-btn" onclick="showClinicMap()">Find Nearby Clinic</button>
-    <button id="quiz-btn" onclick="startQuiz()"> Check My Eligibility</button>
+    <button id="quiz-btn" onclick="startQuiz()">Check My Eligibility</button>
 
     <div id="vhack-badge">V HACK 2026</div>
-
   </div>
 
   <!-- RIGHT PANEL -->
   <div id="chat-panel">
-
     <div id="header">
       <button id="menu-btn" onclick="toggleSidebar()">☰</button>
       <div id="header-avatar">🏥</div>
+
       <div id="header-info">
         <div id="header-name">CareBridge</div>
         <div id="status-text">Online · AI-Powered</div>
       </div>
+
       <div id="lang-bar">
         <button class="lang-btn active" onclick="setLang('en', this)">EN</button>
         <button class="lang-btn" onclick="setLang('bm', this)">BM</button>
@@ -86,11 +90,12 @@
     </div>
 
     <div id="messages">
-      <div class="date-divider"><span>Today</span></div>
+      <div class="date-divider"><span id="today-label">Today</span></div>
     </div>
 
     <div id="input-area">
       <button id="voice-btn" onclick="toggleVoice()" title="Voice input">🎤</button>
+
       <textarea
         id="msg-input"
         placeholder="Ask about any Malaysian healthcare scheme..."
@@ -98,68 +103,67 @@
         onkeydown="handleKey(event)"
         oninput="autoResize(this)"
       ></textarea>
+
       <button id="send-btn" onclick="sendMessage()" title="Send">
         <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
       </button>
     </div>
-
   </div>
 </div>
 
-<!-- Cache-busting timestamp so browser always loads fresh JS -->
 <script src="/static/js/chat.js?v=20260318b"></script>
+
 <script>
   function toggleSidebar() {
-    document.getElementById('sidebar').classList.toggle('open');
+    document.getElementById("sidebar").classList.toggle("open");
   }
 
-  // Standardized scheme questions — same format for all cards
   const SCHEME_QUESTIONS = {
     peka_b40: {
       en: "What is PEKA B40?",
       bm: "Apa itu PEKA B40?",
-      zh: "什么是PEKA B40？",
+      zh: "什么是 PEKA B40？",
       ta: "PEKA B40 என்றால் என்ன?",
-      id: "Apa itu PEKA B40? ",
+      id: "Apa itu PEKA B40?",
       tl: "Ano ang PEKA B40?",
-      vi: "PEKA B40 là gì?",
+      vi: "PEKA B40 là gì?"
     },
     mysalam: {
       en: "What is mySALAM?",
       bm: "Apa itu mySALAM?",
-      zh: "什么是mySALAM？",
+      zh: "什么是 mySALAM？",
       ta: "mySALAM என்றால் என்ன?",
-      id: "Apa itu mySALAM? ",
-      tl: "Ano ang mySALAM? ",
-      vi: "mySALAM là gì? ",
+      id: "Apa itu mySALAM?",
+      tl: "Ano ang mySALAM?",
+      vi: "mySALAM là gì?"
     },
     tbp: {
       en: "What is Tabung Bantuan Perubatan?",
-      bm: "Apa itu Tabung Bantuan Perubatan? ",
-      zh: "什么是医疗援助基金(TBP)？",
-      ta: "Tabung Bantuan Perubatan என்றால் என்ன? ",
-      id: "Apa itu Tabung Bantuan Perubatan? ",
-      tl: "Ano ang Tabung Bantuan Perubatan? ",
-      vi: "Tabung Bantuan Perubatan là gì? ",
+      bm: "Apa itu Tabung Bantuan Perubatan?",
+      zh: "什么是医疗援助基金（TBP）？",
+      ta: "Tabung Bantuan Perubatan என்றால் என்ன?",
+      id: "Apa itu Tabung Bantuan Perubatan?",
+      tl: "Ano ang Tabung Bantuan Perubatan?",
+      vi: "Tabung Bantuan Perubatan là gì?"
     },
     madani: {
-      en: "What is Skim Perubatan Madani? ",
-      bm: "Apa itu Skim Perubatan Madani? ",
-      zh: "什么是Skim Perubatan Madani？",
-      ta: "Skim Perubatan Madani என்றால் என்ன? ",
-      id: "Apa itu Skim Perubatan Madani? ",
+      en: "What is Skim Perubatan Madani?",
+      bm: "Apa itu Skim Perubatan Madani?",
+      zh: "什么是 Skim Perubatan Madani？",
+      ta: "Skim Perubatan Madani என்றால் என்ன?",
+      id: "Apa itu Skim Perubatan Madani?",
       tl: "Ano ang Skim Perubatan Madani?",
-      vi: "Skim Perubatan Madani là gì?",
+      vi: "Skim Perubatan Madani là gì?"
     },
     socso: {
-      en: "What is SOCSO/PERKESO? ",
-      bm: "Apa itu SOCSO/PERKESO? ",
-      zh: "什么是SOCSO/PERKESO？",
+      en: "What is SOCSO/PERKESO?",
+      bm: "Apa itu SOCSO/PERKESO?",
+      zh: "什么是 SOCSO/PERKESO？",
       ta: "SOCSO/PERKESO என்றால் என்ன?",
-      id: "Apa itu SOCSO/PERKESO? ",
-      tl: "Ano ang SOCSO/PERKESO? ",
-      vi: "SOCSO/PERKESO là gì?",
-    },
+      id: "Apa itu SOCSO/PERKESO?",
+      tl: "Ano ang SOCSO/PERKESO?",
+      vi: "SOCSO/PERKESO là gì?"
+    }
   };
 
   function askScheme(schemeKey) {
@@ -169,5 +173,6 @@
     if (window.processMessage) window.processMessage(question);
   }
 </script>
+
 </body>
 </html>
