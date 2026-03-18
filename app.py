@@ -40,7 +40,7 @@ groq_client = OpenAI(
 SEALION_MODEL = "aisingapore/Gemma-SEA-LION-v4-27B-IT"
 GROQ_MODEL    = "llama-3.3-70b-versatile"
 
-app = FastAPI(title="HealthCare Helper MY", version="2.0.0")
+app = FastAPI(title="CareBridge", version="2.0.0")
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 

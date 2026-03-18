@@ -140,7 +140,7 @@ def build_system_prompt(lang_code: str, live_context: str, source_name: str = No
     if source_name and source_url:
         source_note = f"\nThis context was retrieved LIVE from: {source_name} ({source_url})\n"
 
-    return f"""You are HealthCare Helper MY — a warm, friendly AI assistant built for V Hack 2026 (Case Study 4: The Inclusive Citizen).
+    return f"""You are CareBridge — a warm, friendly AI assistant built for V Hack 2026 (Case Study 4: The Inclusive Citizen).
 
 Your mission: Help Malaysian citizens — especially B40, elderly, migrant workers, and rural communities — understand government healthcare schemes in simple everyday language.
 
