@@ -12,43 +12,38 @@
 
 <div id="page-wrapper">
 
-  <!-- LEFT PANEL — info sidebar -->
+  <!-- LEFT PANEL -->
   <div id="sidebar">
     <div id="sidebar-logo">🏥</div>
     <h1 id="sidebar-title">HealthCare<br>Helper MY</h1>
     <p id="sidebar-sub">AI-powered guide to Malaysian government healthcare schemes</p>
 
     <div id="scheme-list">
-      <div class="scheme-card" onclick="sendQuick('What is PEKA B40 and am I eligible?')">
-        <span class="scheme-icon">🔍</span>
+      <div class="scheme-card" onclick="askScheme('peka_b40')">
         <div>
           <div class="scheme-name">PEKA B40</div>
           <div class="scheme-desc">Free health screening</div>
         </div>
       </div>
-      <div class="scheme-card" onclick="sendQuick('How does mySALAM work and how do I claim?')">
-        <span class="scheme-icon">💊</span>
+      <div class="scheme-card" onclick="askScheme('mysalam')">
         <div>
           <div class="scheme-name">mySALAM</div>
           <div class="scheme-desc">Critical illness cash aid</div>
         </div>
       </div>
-      <div class="scheme-card" onclick="sendQuick('How to apply for Tabung Bantuan Perubatan?')">
-        <span class="scheme-icon">🏥</span>
+      <div class="scheme-card" onclick="askScheme('tbp')">
         <div>
           <div class="scheme-name">Tabung Bantuan</div>
           <div class="scheme-desc">Medical assistance fund</div>
         </div>
       </div>
-      <div class="scheme-card" onclick="sendQuick('Tell me about Skim Perubatan Madani free clinic')">
-        <span class="scheme-icon">🩺</span>
+      <div class="scheme-card" onclick="askScheme('madani')">
         <div>
           <div class="scheme-name">Skim Madani</div>
           <div class="scheme-desc">Free clinic treatment</div>
         </div>
       </div>
-      <div class="scheme-card" onclick="sendQuick('What does SOCSO cover for work accidents?')">
-        <span class="scheme-icon">🦺</span>
+      <div class="scheme-card" onclick="askScheme('socso')">
         <div>
           <div class="scheme-name">SOCSO</div>
           <div class="scheme-desc">Work accident protection</div>
@@ -56,25 +51,15 @@
       </div>
     </div>
 
-    <button id="map-btn" onclick="sendQuick('Find clinic near me')">🗺️ Find Nearby Clinic</button>
+    <button id="summarize-btn" onclick="showSummarizeMenu()"> Summarize a Policy</button>
+    <button id="map-btn" onclick="showClinicMap()">Find Nearby Clinic</button>
+    <button id="quiz-btn" onclick="startQuiz()"> Check My Eligibility</button>
 
-    <button id="quiz-btn" onclick="startQuiz()">
-      🎯 Check My Eligibility
-    </button>
-
-    <div id="sidebar-footer">
-      <div id="powered-by">
-        <span>Powered by</span>
-        <strong>SEA-LION v4</strong>
-      </div>
-      <div id="vhack-badge">V HACK 2026</div>
-    </div>
   </div>
 
-  <!-- RIGHT PANEL — chat -->
+  <!-- RIGHT PANEL -->
   <div id="chat-panel">
 
-    <!-- HEADER -->
     <div id="header">
       <button id="menu-btn" onclick="toggleSidebar()">☰</button>
       <div id="header-avatar">🏥</div>
@@ -93,20 +78,13 @@
       </div>
     </div>
 
-    <!-- DISCLAIMER -->
-    <div id="disclaimer">
-      ⚠️ For reference only — always verify with official government sources.
-    </div>
-
-    <!-- MESSAGES -->
     <div id="messages">
       <div class="date-divider"><span>Today</span></div>
     </div>
 
-    <!-- INPUT -->
     <div id="input-area">
       <button id="voice-btn" onclick="toggleVoice()" title="Voice input">🎤</button>
-    <textarea
+      <textarea
         id="msg-input"
         placeholder="Ask about any Malaysian healthcare scheme..."
         rows="1"
@@ -121,10 +99,67 @@
   </div>
 </div>
 
-<script src="/static/js/chat.js"></script>
+<!-- Cache-busting timestamp so browser always loads fresh JS -->
+<script src="/static/js/chat.js?v=20260318"></script>
 <script>
   function toggleSidebar() {
     document.getElementById('sidebar').classList.toggle('open');
+  }
+
+  // Standardized scheme questions — same format for all cards
+  const SCHEME_QUESTIONS = {
+    peka_b40: {
+      en: "What is PEKA B40? Who is eligible and what are the benefits?",
+      bm: "Apa itu PEKA B40? Siapa yang layak dan apakah faedahnya?",
+      zh: "什么是PEKA B40？谁有资格？有什么福利？",
+      ta: "PEKA B40 என்றால் என்ன? யார் தகுதியானவர்? என்ன நன்மைகள்?",
+      id: "Apa itu PEKA B40? Siapa yang berhak dan apa manfaatnya?",
+      tl: "Ano ang PEKA B40? Sino ang kwalipikado at ano ang mga benepisyo?",
+      vi: "PEKA B40 là gì? Ai đủ điều kiện và có những lợi ích gì?",
+    },
+    mysalam: {
+      en: "What is mySALAM? Who is eligible and how do I claim?",
+      bm: "Apa itu mySALAM? Siapa yang layak dan bagaimana cara tuntut?",
+      zh: "什么是mySALAM？谁有资格？如何申请理赔？",
+      ta: "mySALAM என்றால் என்ன? யார் தகுதியானவர்? எப்படி கோருவது?",
+      id: "Apa itu mySALAM? Siapa yang berhak dan bagaimana cara klaim?",
+      tl: "Ano ang mySALAM? Sino ang kwalipikado at paano mag-claim?",
+      vi: "mySALAM là gì? Ai đủ điều kiện và cách nhận trợ cấp?",
+    },
+    tbp: {
+      en: "What is Tabung Bantuan Perubatan? Who can apply and how?",
+      bm: "Apa itu Tabung Bantuan Perubatan? Siapa boleh mohon dan bagaimana?",
+      zh: "什么是医疗援助基金(TBP)？谁可以申请？如何申请？",
+      ta: "Tabung Bantuan Perubatan என்றால் என்ன? யார் விண்ணப்பிக்கலாம்?",
+      id: "Apa itu Tabung Bantuan Perubatan? Siapa yang bisa mendaftar?",
+      tl: "Ano ang Tabung Bantuan Perubatan? Sino ang maaaring mag-apply?",
+      vi: "Tabung Bantuan Perubatan là gì? Ai có thể đăng ký?",
+    },
+    madani: {
+      en: "What is Skim Perubatan Madani? Who is eligible for free clinic treatment?",
+      bm: "Apa itu Skim Perubatan Madani? Siapa layak rawatan klinik percuma?",
+      zh: "什么是Skim Perubatan Madani？谁可以享受免费诊所治疗？",
+      ta: "Skim Perubatan Madani என்றால் என்ன? இலவச கிளினிக் சிகிச்சைக்கு யார் தகுதியானவர்?",
+      id: "Apa itu Skim Perubatan Madani? Siapa yang berhak rawatan klinik gratis?",
+      tl: "Ano ang Skim Perubatan Madani? Sino ang kwalipikado sa libreng klinika?",
+      vi: "Skim Perubatan Madani là gì? Ai đủ điều kiện điều trị phòng khám miễn phí?",
+    },
+    socso: {
+      en: "What is SOCSO/PERKESO? What does it cover for work accidents?",
+      bm: "Apa itu SOCSO/PERKESO? Apakah yang dilindungi untuk kemalangan kerja?",
+      zh: "什么是SOCSO/PERKESO？工伤事故涵盖哪些内容？",
+      ta: "SOCSO/PERKESO என்றால் என்ன? தொழில் விபத்துக்கு என்ன பாதுகாப்பு?",
+      id: "Apa itu SOCSO/PERKESO? Apa yang ditanggung untuk kecelakaan kerja?",
+      tl: "Ano ang SOCSO/PERKESO? Ano ang saklaw para sa aksidente sa trabaho?",
+      vi: "SOCSO/PERKESO là gì? Tai nạn lao động được bảo vệ như thế nào?",
+    },
+  };
+
+  function askScheme(schemeKey) {
+    const lang = window.currentLang || "en";
+    const questions = SCHEME_QUESTIONS[schemeKey];
+    const question = questions[lang] || questions.en;
+    if (window.processMessage) window.processMessage(question);
   }
 </script>
 </body>

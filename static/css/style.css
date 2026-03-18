@@ -367,3 +367,18 @@ body {
   background: rgba(255,255,255,0.1);
   border-color: rgba(255,255,255,0.4);
 }
+
+/* ── SUMMARIZE BUTTON (sidebar) ──────────────── */
+#summarize-btn {
+  width: 100%; padding: 12px;
+  background: var(--green); color: #fff;
+  border: none; border-radius: 12px;
+  font-size: 14px; font-weight: 600;
+  font-family: var(--font);
+  cursor: pointer; margin-top: 8px;
+  transition: background 0.15s, transform 0.1s;
+  letter-spacing: 0.3px;
+}
+#summarize-btn:hover { background: var(--green-dark); }
+#summarize-btn:active { transform: scale(0.97); }
+

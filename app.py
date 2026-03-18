@@ -37,7 +37,7 @@ groq_client = OpenAI(
     base_url="https://api.groq.com/openai/v1",
 )
 
-SEALION_MODEL = "aisingapore/Apertus-SEA-LION-v4-8B-IT"
+SEALION_MODEL = "aisingapore/Gemma-SEA-LION-v4-27B-IT"
 GROQ_MODEL    = "llama-3.3-70b-versatile"
 
 app = FastAPI(title="HealthCare Helper MY", version="2.0.0")

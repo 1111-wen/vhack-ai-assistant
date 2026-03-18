@@ -1,3 +1,19 @@
+"""
+rag_pipeline.py
+---------------
+TRUE RAG pipeline — fetches live content from official Malaysian
+government websites before every answer, so information is always
+up-to-date.
+
+Flow:
+  1. Detect which scheme the user is asking about
+  2. Search the web for that scheme's official page
+  3. Feed the fresh content into the SEA-LION system prompt
+  4. SEA-LION answers grounded in live data
+
+V Hack 2026 — Case Study 4: The Inclusive Citizen
+"""
+
 import httpx
 import re
 from language_utils import get_language_instruction
@@ -51,7 +67,10 @@ SOCSO/PERKESO: Work accident protection for employees. Unlimited medical coverag
 
 
 def detect_scheme(user_text: str) -> str | None:
-
+    """
+    Detect which scheme the user is asking about.
+    Returns scheme key or None if unclear / general question.
+    """
     text_lower = user_text.lower()
     for scheme_key, info in SCHEME_SOURCES.items():
         if any(kw in text_lower for kw in info["keywords"]):
@@ -60,6 +79,11 @@ def detect_scheme(user_text: str) -> str | None:
 
 
 def fetch_page_content(url: str, timeout: int = 8) -> str:
+    """
+    Fetch text content from a URL.
+    Returns plain text, stripped of HTML tags.
+    Max 3000 chars to keep prompt size manageable.
+    """
     try:
         headers = {
             "User-Agent": "Mozilla/5.0 (compatible; HealthcareHelperMY/1.0)",
@@ -81,7 +105,12 @@ def fetch_page_content(url: str, timeout: int = 8) -> str:
 
 
 def get_live_context(user_text: str) -> tuple[str, str, str]:
-
+    """
+    Main RAG function.
+    1. Detect which scheme the user is asking about
+    2. Fetch live content from official source
+    3. Return (context_text, source_name, source_url)
+    """
     scheme_key = detect_scheme(user_text)
 
     if scheme_key:
@@ -102,7 +131,9 @@ def get_live_context(user_text: str) -> tuple[str, str, str]:
 
 
 def build_system_prompt(lang_code: str, live_context: str, source_name: str = None, source_url: str = None) -> str:
-
+    """
+    Build the full system prompt with live-fetched context injected.
+    """
     lang_instruction = get_language_instruction(lang_code)
 
     source_note = ""
@@ -130,9 +161,17 @@ STRICT RULES:
    Politely redirect and suggest one relevant scheme. Do NOT answer off-topic questions.
 
 3. Use SIMPLE language — explain like you're talking to someone's grandmother.
-   Short sentences. No jargon. Bullet points only for 3+ items.
+   Short sentences. No jargon. Always use bullet points (•) for any list of 2+ items.
 
-4. Keep answers SHORT and practical (3-5 sentences or up to 8 bullet points max).
+4. Keep answers SHORT and practical. FORMAT RULES:
+   - ALWAYS simplify complex government/legal language into plain simple words
+   - Use bullet points (•) for any list, each bullet max 10 words
+   - Target reading level: Standard 5 student (10-11 years old)
+   - Replace jargon: "beneficiary" → "person who receives aid"
+   - Replace jargon: "eligible" → "can get this"  
+   - Replace jargon: "takaful" → "free insurance protection"
+   - Max 5 bullets per answer
+   - Never copy paste raw government text — always rewrite in simple words
 
 5. Always cite the official source URL.
 
