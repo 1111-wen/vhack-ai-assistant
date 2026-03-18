@@ -100,7 +100,7 @@ function addBotMessage(reply, sourceName, sourceUrl, chips, outOfScope) {
     }), 0);
   }
 
-  row.innerHTML = `<div class="bot-avatar"></div>
+  row.innerHTML = `<div class="bot-avatar">🤖</div>
     <div class="bubble">
       <div class="msg-text">${formatText(reply)}</div>
       ${oosHtml}${sourceHtml}${chipsHtml}
@@ -112,7 +112,7 @@ function addBotMessage(reply, sourceName, sourceUrl, chips, outOfScope) {
 function addTypingIndicator() {
   const row = document.createElement("div");
   row.className = "msg-row bot"; row.id = "typing-row";
-  row.innerHTML = `<div class="bot-avatar"></div><div class="bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
+  row.innerHTML = `<div class="bot-avatar">🤖</div><div class="bubble"><div class="typing-dots"><span></span><span></span><span></span></div></div>`;
   messagesEl.appendChild(row); scrollDown();
 }
 function removeTypingIndicator() { const el = document.getElementById("typing-row"); if (el) el.remove(); }
@@ -163,8 +163,13 @@ async function processMessage(userText) {
     removeTypingIndicator();
     if (data.error) addBotMessage(`${data.error}`, null, null, [], false);
     else addBotMessage(data.reply||"Try again.", data.source_name||null, data.source_url||null, data.follow_up_chips||[], data.out_of_scope||false);
-  } catch { removeTypingIndicator(); addBotMessage("Connection error.", null, null, [], false); }
-  isLoading = false; sendBtn.disabled = false;
+  } catch {
+    removeTypingIndicator();
+    addBotMessage("Connection error.", null, null, [], false);
+  }
+
+  isLoading = false;
+  sendBtn.disabled = false;
   statusText.textContent = "Online · AI-Powered";
   inputEl.focus();
 }
@@ -255,7 +260,7 @@ function showQuizQuestion(step) {
   row.className = "msg-row bot";
   const btnId = "quiz-"+(++chipCounter);
   const optionBtns = question.options.map((opt,i)=>`<button class="quiz-option" id="${btnId}-opt-${i}">${escHtml(opt)}</button>`).join("");
-  row.innerHTML = `<div class="bot-avatar"></div>
+  row.innerHTML = `<div class="bot-avatar">🤖</div>
     <div class="bubble">
       <div class="msg-text">${formatText(question.text)}</div>
       <div class="quiz-options">${optionBtns}</div>
@@ -325,7 +330,7 @@ function showSummarizeMenu() {
     `<button class="quiz-option" id="${menuId}-${i}" style="text-align:left;padding:10px 14px;margin-bottom:4px;width:100%;">${escHtml(s.label)}</button>`
   ).join("");
 
-  row.innerHTML = `<div class="bot-avatar"></div>
+  row.innerHTML = `<div class="bot-avatar">🤖</div>
     <div class="bubble" style="max-width:92%;">
       <div class="msg-text" style="margin-bottom:10px;">${escHtml(SUMMARIZE_HEADERS[currentLang]||SUMMARIZE_HEADERS.en)}</div>
       <div style="display:flex;flex-direction:column;gap:4px;">${optionBtns}</div>
@@ -371,11 +376,16 @@ function isClinicQuery(text) {
 function showClinicMap() {
   const row = document.createElement("div");
   row.className = "msg-row bot";
-  row.innerHTML = `<div class="bot-avatar"></div>
+  row.innerHTML = `<div class="bot-avatar">🤖</div>
     <div class="bubble" style="max-width:92%;padding:12px;">
-      <div class="msg-text" style="margin-bottom:10px;"><strong>Find a clinic near you</strong><br>
-        <span style="font-size:12px;color:#666;">Tap any option to search on Google Maps</span>
-      </div>
+      <div style="line-height:1.3;">
+        <strong style="display:block; margin-bottom:4px;">
+          Find a clinic near you
+        </strong>
+
+      <span style="font-size:12px;color:#666; display:block; margin-bottom:10px;">
+        Tap any option to search on Google Maps </span>
+    </div>
       <div style="display:flex;flex-direction:column;gap:8px;">
         <a href="https://www.google.com/maps/search/klinik+kesihatan/" target="_blank"
            style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#E8F5E9;border:1px solid #A5D6A7;border-radius:10px;text-decoration:none;">
@@ -395,11 +405,11 @@ function showClinicMap() {
           <div><div style="font-size:13px;font-weight:600;color:#4A148C;">Skim Perubatan Madani Clinic</div>
           <div style="font-size:11px;color:#6A1B9A;">Search on Google Maps →</div></div>
         </a>
-        <a href="https://www.pekab40.com.my" target="_blank"
+        <a href="https://bms.pekab40.com.my/provider" target="_blank"
            style="display:flex;align-items:center;gap:10px;padding:10px 12px;background:#FFF8E1;border:1px solid #FFE082;border-radius:10px;text-decoration:none;">
           <span style="font-size:20px;"></span>
           <div><div style="font-size:13px;font-weight:600;color:#E65100;">Official PEKA B40 Panel List</div>
-          <div style="font-size:11px;color:#F57C00;">pekab40.com.my →</div></div>
+          <div style="font-size:11px;color:#F57C00;">bms.pekab40.com.my/provider →</div></div>
         </a>
       </div>
       <span class="time">${getTime()}</span>
