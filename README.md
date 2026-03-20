@@ -1,4 +1,5 @@
 **Track:** Inclusive Citizen – Multilingual AI for Public Service
+
 CareBridge is a multilingual AI-powered assistant that simplifies Malaysian government healthcare schemes and helps users understand **eligibility, benefits, and application steps** in a clear and accessible way.
 It is designed for users who face barriers such as complex policy language, scattered information, low digital literacy, and limited multilingual support.
 
