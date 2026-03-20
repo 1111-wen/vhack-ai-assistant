@@ -1,5 +1,201 @@
-V
+# CareBridge
+**Track:** Inclusive Citizen – Multilingual AI for Public Service  
 
+CareBridge is a multilingual AI-powered assistant that simplifies Malaysian government healthcare schemes and helps users understand **eligibility, benefits, and application steps** in a clear and accessible way.
+
+It is designed for users who face barriers such as complex policy language, scattered information, low digital literacy, and limited multilingual support.
+
+---
+
+## 🎯 Problem Statement
+
+Many Malaysians struggle to access and understand government healthcare support such as **PEKA B40, mySALAM, SOCSO/PERKESO, Skim Perubatan Madani,** and **Tabung Bantuan Perubatan**.
+
+This happens because:
+- Government information is scattered across multiple websites and portals  
+- Eligibility rules and application steps are difficult to understand  
+- Elderly users and low digital literacy users find official portals hard to use  
+- Rural communities and migrant workers face language and awareness barriers  
+- Users do not know which scheme they are eligible for or how to apply  
+
+This causes:
+- ❌ Missed financial and healthcare assistance  
+- ❌ Confusion about eligibility and benefits  
+- ❌ Delayed access to treatment or support  
+- ❌ Increased burden on hotlines and hospitals  
+
+---
+
+## 💡 Solution
+
+CareBridge transforms complex healthcare policies into **simple, step-by-step guidance** through a chat-based interface.
+
+It helps users:
+- Understand available healthcare schemes  
+- Check eligibility  
+- Learn benefits  
+- Get clear application steps  
+- Find nearby clinics  
+
+---
+
+## 🚀 Core Features
+
+### 💬 Multilingual AI Chatbot
+- Supports 7 languages (EN, BM, ZH, TA, ID, TL, VI)  
+- Simplifies complex policy information  
+- Localized for Malaysian healthcare schemes  
+
+### 📱 WhatsApp-Style Interface
+- Familiar chat UI  
+- Easy for low digital literacy users  
+
+### 🧠 Eligibility Quiz
+- 4-question pre-screening  
+- Suggests suitable schemes  
+
+### 📄 Policy Summarizer
+- Converts policies into simple bullet points  
+- Covers eligibility, benefits, and application steps  
+
+### 🎤 Voice Input
+- Speech-to-text support  
+- Improves accessibility  
+
+### 📍 Clinic Finder
+- Finds nearby clinics  
+- Uses Google Maps search  
+
+### 🔎 Real-Time Information
+- Retrieves relevant info from official sources  
+
+---
+
+## 🌟 Extra Value
+
+- Inclusive for elderly, rural users, and migrant workers  
+- Reduces confusion from fragmented information  
+- Supports public awareness  
+- Reduces workload for hospitals and agencies  
+
+---
+
+## 🔮 Future Improvements
+
+- Government API integration  
+- Real-time eligibility verification (official data)  
+- Mobile app version  
+- Offline / low-internet support  
+- AI personalization  
+- Multi-sector expansion:
+  - Housing  
+  - Welfare  
+  - Financial aid  
+  - Education  
+
+---
+
+## 🛠️ Technology Stack
+
+### Frontend
+- HTML5  
+- CSS3  
+- JavaScript (Vanilla)  
+
+### Backend & RAG
+- FastAPI  
+- Python  
+- Jinja  
+
+### APIs / Services
+- OpenAI API  
+- Web Speech API  
+- Google Maps  
+
+---
+
+## 👥 Target Users
+
+- B40 & M40 Malaysians  
+- Elderly users  
+- Rural communities  
+- Non-English speakers  
+- First-time healthcare users  
+- Migrant workers  
+
+---
+
+## 💼 Business Model
+
+### Free Access
+- Free chatbot usage  
+- Eligibility checking  
+- Multilingual support  
+
+### Institutional Value
+- Government & NGO adoption  
+- Public awareness  
+- Pre-screening users  
+- Reduce workload  
+
+### Future Expansion
+- Personalized recommendations  
+- System integration  
+- Multi-sector services  
+
+---
+
+## 📊 Competitor Analysis
+
+| Competitor           | Limitation                          |
+|---------------------|------------------------------------|
+| Government websites | Complex, hard to navigate          |
+| Google search       | Too much unstructured information  |
+| Generic chatbots    | Not localized                      |
+
+### Our Advantage
+- Malaysia-specific  
+- Simple language  
+- Step-by-step guidance  
+- Eligibility checking  
+- Multilingual support  
+
+---
+
+## 📁 Project Structure
+
+```bash
+carebridge/
+├── static/
+│   ├── css/
+│   │   └── style.css
+│   ├── js/
+│   │   └── chat.js
+│   └── assets/
+│       └── icons/
+├── templates/
+│   ├── index.html
+│   └── base.html
+├── app/
+│   ├── main.py
+│   ├── routes/
+│   │   ├── chat.py
+│   │   └── welcome.py
+│   ├── services/
+│   │   ├── ai_service.py
+│   │   ├── rag_service.py
+│   │   ├── translation_service.py
+│   │   └── clinic_service.py
+│   ├── utils/
+│   │   ├── language_utils.py
+│   │   ├── scheme_utils.py
+│   │   └── formatting_utils.py
+│   └── models/
+│       └── schemas.py
+├── requirements.txt
+├── README.md
+└── .env
+```
 ---
 
 ## ⚙️ Getting Started
