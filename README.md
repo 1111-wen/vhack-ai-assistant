@@ -7,7 +7,8 @@ V
 Prerequisites
 Python 3.10+
 pip
-OpenAI API key
+SealionAI API key
+
 Installation
 1. Clone the repository
 git clone https://github.com/your-username/carebridge.git
@@ -27,7 +28,7 @@ pip install -r requirements.txt
 
 5. Create environment variables
 Create .env file:
-OPENAI_API_KEY=your_api_key_here
+SEALION_API_KEY=your_api_key_here
 
 6. Run the application
 uvicorn app.main:app --reload
