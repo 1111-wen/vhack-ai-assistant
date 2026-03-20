@@ -222,7 +222,7 @@ carebridge/
 ├── README.md
 └── .env
 
-⚙️ Getting Started
+## ⚙️ Getting Started
 Prerequisites
 Python 3.10+
 pip
@@ -248,7 +248,7 @@ uvicorn app.main:app --reload
 Open in browser
 http://127.0.0.1:8000
 
-📋 Example User Flows
+##📋 Example User Flows
 Example 1: Eligibility Guidance
 User asks:
 Am I eligible for PEKA B40?
@@ -280,7 +280,7 @@ Converts voice to text
 Processes healthcare question
 Returns multilingual guidance
 
-🎯 Project Impact
+##🎯 Project Impact
 CareBridge can improve public healthcare access in Malaysia by:
 Simplifying complicated healthcare policies
 Making government support easier to understand
@@ -289,21 +289,21 @@ Increasing awareness among underserved communities
 Reducing confusion and misinformation
 Supporting inclusive access through multilingual and voice-based interaction
 
-✅ Key Highlights
+##✅ Key Highlights
 Multilingual public service assistant
 Healthcare-scheme focused
 Built for accessibility and inclusion
 Combines AI guidance with structured local logic
 Practical and scalable for real-world public use
 
-🤝 Contributing
+##🤝 Contributing
 Fork the repository
 Create a new branch
 Make your changes
 Commit your updates
 Submit a pull request
 
-📄 References
+##📄 References
 Official PEKA B40 website
 Official mySALAM website
 Official PERKESO website
