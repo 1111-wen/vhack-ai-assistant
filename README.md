@@ -190,7 +190,7 @@ Use cases include:
 
 ## 📁 Project Structure
 
-```bash
+📁 Project Structure
 carebridge/
 ├── static/
 │   ├── css/
@@ -221,33 +221,52 @@ carebridge/
 ├── requirements.txt
 ├── README.md
 └── .env
-
----
-
-## ⚙️ Getting Started
+⚙️ Getting Started
 Prerequisites
+
 Python 3.10+
+
 pip
+
 OpenAI API key
+
 Installation
-Clone the repository
+
+1. Clone the repository
+
 git clone https://github.com/your-username/carebridge.git
 cd carebridge
-Create a virtual environment
+
+2. Create virtual environment
+
 python -m venv venv
-Activate the virtual environment
+
+3. Activate virtual environment
+
 Windows
+
 venv\Scripts\activate
+
 Mac/Linux
+
 source venv/bin/activate
-Install dependencies
+
+4. Install dependencies
+
 pip install -r requirements.txt
-Create environment variables
-Create a .env file and add:
+
+5. Create environment variables
+
+Create .env file:
+
 OPENAI_API_KEY=your_api_key_here
-Run the application
+
+6. Run the application
+
 uvicorn app.main:app --reload
-Open in browser
+
+7. Open in browser
+
 http://127.0.0.1:8000
 
 ---
