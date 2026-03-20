@@ -9,7 +9,7 @@ It is designed for users who face barriers such as complex policy language, scat
 ## 🎥 Demo & Presentation
 
 - 📹 Demo Video: https://your-video-link
-- 📊 Presentation Slides: [https://your-canva-link](https://www.canva.com/design/DAHETYoEWlE/yZ4FWzDAIGAHRyTqpt-UnQ/edit?utm_content=DAHETYoEWlE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+- 📊 Presentation Slides: [https://canva-link](https://www.canva.com/design/DAHETYoEWlE/yZ4FWzDAIGAHRyTqpt-UnQ/edit?utm_content=DAHETYoEWlE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 ---
 
