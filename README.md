@@ -108,7 +108,7 @@ It helps users:
 - Jinja  
 
 ### APIs / Services
-- OpenAI API  
+- SEALION API  
 - Web Speech API  
 - Google Maps  
 
