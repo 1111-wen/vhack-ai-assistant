@@ -6,6 +6,12 @@ CareBridge is a multilingual AI-powered assistant that simplifies Malaysian gove
 It is designed for users who face barriers such as complex policy language, scattered information, low digital literacy, and limited multilingual support.
 
 ---
+## 🎥 Demo & Presentation
+
+- 📹 Demo Video: https://your-video-link
+- 📊 Presentation Slides: [https://your-canva-link](https://www.canva.com/design/DAHETYoEWlE/yZ4FWzDAIGAHRyTqpt-UnQ/edit?utm_content=DAHETYoEWlE&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
+---
 
 ## 🎯 Problem Statement
 
@@ -314,3 +320,4 @@ Replace with your actual links if needed.
 
 If you have questions or suggestions, please open an issue in the repository.
 Built with ❤️ to make Malaysian public healthcare support more accessible and inclusive.
+
